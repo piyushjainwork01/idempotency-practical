@@ -3,10 +3,10 @@ package com.example.duplicate_orders.controller;
 import com.example.duplicate_orders.model.Order;
 import com.example.duplicate_orders.service.OrderServiceBad;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +18,10 @@ public class OrderController {
     @PostMapping
     public Order create(@RequestParam String product) {
         return orderServiceBad.createOrder(product);
+    }
+
+    @GetMapping
+    public Page<Order> getOrders(@RequestParam Long userId) {
+        return orderServiceBad.getOrdersByUser(userId);
     }
 }

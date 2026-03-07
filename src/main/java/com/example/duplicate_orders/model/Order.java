@@ -1,12 +1,14 @@
 package com.example.duplicate_orders.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
 
 @Entity
 @Data
+@Table(name = "orders",indexes = {
+        @Index(name = "idx_user_id",columnList = "user_id")
+})
 public class Order {
 
     @Id
@@ -16,4 +18,8 @@ public class Order {
     private String product;
 
     private String idempotencyKey;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
